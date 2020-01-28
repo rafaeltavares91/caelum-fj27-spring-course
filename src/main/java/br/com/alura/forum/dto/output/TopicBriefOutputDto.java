@@ -1,4 +1,4 @@
-package br.com.alura.forum.dto;
+package br.com.alura.forum.dto.output;
 
 import java.time.Duration;
 import java.time.Instant;

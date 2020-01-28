@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.alura.forum.dto.DashboardDto;
+import br.com.alura.forum.dto.output.DashboardDto;
 import br.com.alura.forum.repository.CategoryRepository;
 import br.com.alura.forum.repository.TopicRepository;
 

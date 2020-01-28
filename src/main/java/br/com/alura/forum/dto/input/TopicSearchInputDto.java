@@ -1,4 +1,4 @@
-package br.com.alura.forum.dto;
+package br.com.alura.forum.dto.input;
 
 import br.com.alura.forum.model.topic.domain.Topic;
 import br.com.alura.forum.model.topic.domain.TopicStatus;

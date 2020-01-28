@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.forum.config.TokenManager;
-import br.com.alura.forum.dto.AuthenticationTokenOutputDto;
-import br.com.alura.forum.dto.LoginInputDto;
+import br.com.alura.forum.dto.input.LoginInputDto;
+import br.com.alura.forum.dto.output.AuthenticationTokenOutputDto;
 
 @RestController
 @RequestMapping("api/auth")
