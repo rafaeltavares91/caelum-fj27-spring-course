@@ -1,10 +1,15 @@
 package br.com.alura.forum.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,6 +23,12 @@ import br.com.alura.forum.exception.ResourceNotFoundException;
 @RestControllerAdvice
 public class ExceptionHandlerController {
 	
+	private MessageSource messageSource;
+	
+	public ExceptionHandlerController(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler({ResourceNotFoundException.class})
     public MessageCodeOutputDto handleNotFoundException(Exception exception, WebRequest request) {
@@ -33,10 +44,20 @@ public class ExceptionHandlerController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({MethodArgumentNotValidException.class})
     public MessageCodeOutputDto handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-		return MessageCodeOutputDto.of("Argumentos Inválios", HttpStatus.BAD_REQUEST.value(), ex.getBindingResult().getFieldErrors()
+		List<FieldErrorOutputDto> fieldErrors = new ArrayList<>();
+		fieldErrors.addAll(ex.getBindingResult().getFieldErrors()
 				.stream()
 				.map(FieldErrorOutputDto::new)
 				.collect(Collectors.toList()));
+		fieldErrors.addAll(ex.getBindingResult().getGlobalErrors()
+				.stream()
+				.map(globalError -> new FieldErrorOutputDto(globalError.getObjectName(), getErrorMessage(globalError)))
+				.collect(Collectors.toList()));
+		return MessageCodeOutputDto.of("Argumentos Inválios", HttpStatus.BAD_REQUEST.value(), fieldErrors);
     }
+	
+	private String getErrorMessage(ObjectError error) {
+		return messageSource.getMessage(error, LocaleContextHolder.getLocale());
+	}
 
 }

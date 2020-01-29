@@ -1,7 +1,6 @@
 package br.com.alura.forum.dto.output;
 
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 
 public class FieldErrorOutputDto {
 
@@ -16,11 +15,6 @@ public class FieldErrorOutputDto {
 	public FieldErrorOutputDto(FieldError fieldError) {
 		this.field = fieldError.getField();
 		this.message = fieldError.getDefaultMessage();
-	}
-	
-	public FieldErrorOutputDto(ObjectError globalError) {
-		this.field = globalError.getObjectName();
-		this.message = globalError.getDefaultMessage();
 	}
 
 	public String getField() {
