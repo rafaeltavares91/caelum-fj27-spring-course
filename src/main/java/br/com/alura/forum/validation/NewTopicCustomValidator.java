@@ -11,15 +11,17 @@ import org.springframework.validation.Validator;
 import br.com.alura.forum.dto.input.NewTopicInputDto;
 import br.com.alura.forum.model.User;
 import br.com.alura.forum.model.topic.domain.Topic;
-import br.com.alura.forum.repository.TopicRepository;
+import br.com.alura.forum.service.TopicService;
 
 public class NewTopicCustomValidator implements Validator {
 	
-	private TopicRepository topicRepository;
+	private static final int LIMIT_TOPICS_PER_HOUR = 4;
+	
+	private TopicService topicService;
 	private User user;
 
-	public NewTopicCustomValidator(TopicRepository topicRepository, User user) {
-		this.topicRepository = topicRepository;
+	public NewTopicCustomValidator(TopicService topicService, User user) {
+		this.topicService = topicService;
 		this.user = user;
 	}
 
@@ -31,9 +33,9 @@ public class NewTopicCustomValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
-		List<Topic> topicos = topicRepository.findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(
+		List<Topic> topicos = topicService.findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(
 				user, oneHourAgo);
-		if (topicos.size() >= 4) {
+		if (topicos.size() >= LIMIT_TOPICS_PER_HOUR) {
 			Instant instantOftheOldestTopic = topicos.get(0).getCreationInstant();
 			long minutesToNextTopic = Duration.between(oneHourAgo, instantOftheOldestTopic).getSeconds() / 60;
 			errors.reject(

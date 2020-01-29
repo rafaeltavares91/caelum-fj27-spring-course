@@ -12,7 +12,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ import br.com.alura.forum.model.User;
 import br.com.alura.forum.model.topic.domain.Topic;
 import br.com.alura.forum.service.DashboardService;
 import br.com.alura.forum.service.TopicService;
+import br.com.alura.forum.validation.NewTopicCustomValidator;
 
 @RestController
 @RequestMapping(TopicController.BASE_URL)
@@ -67,6 +70,11 @@ public class TopicController {
 	@PostMapping
 	public TopicOutputDto createTopic(@Valid @RequestBody NewTopicInputDto newTopicDto, @AuthenticationPrincipal User user) {
 		return topicService.createTopic(newTopicDto, user);
+	}
+	
+	@InitBinder("newTopicInputDto")
+	public void initBinder(WebDataBinder binder, @AuthenticationPrincipal User user) {
+		binder.addValidators(new NewTopicCustomValidator(topicService, user));
 	}
 	
 }

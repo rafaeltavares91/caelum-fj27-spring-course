@@ -53,7 +53,7 @@ public class ExceptionHandlerController {
 				.stream()
 				.map(globalError -> new FieldErrorOutputDto(globalError.getObjectName(), getErrorMessage(globalError)))
 				.collect(Collectors.toList()));
-		return MessageCodeOutputDto.of("Argumentos Inválios", HttpStatus.BAD_REQUEST.value(), fieldErrors);
+		return MessageCodeOutputDto.of("Invalid Arguments", HttpStatus.BAD_REQUEST.value(), fieldErrors);
     }
 	
 	private String getErrorMessage(ObjectError error) {
