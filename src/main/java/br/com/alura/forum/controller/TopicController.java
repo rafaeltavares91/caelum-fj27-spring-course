@@ -2,6 +2,8 @@ package br.com.alura.forum.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,9 +12,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,7 +65,7 @@ public class TopicController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public TopicOutputDto createTopic(NewTopicInputDto newTopicDto, @AuthenticationPrincipal User user) {
+	public TopicOutputDto createTopic(@Valid @RequestBody NewTopicInputDto newTopicDto, @AuthenticationPrincipal User user) {
 		return topicService.createTopic(newTopicDto, user);
 	}
 	

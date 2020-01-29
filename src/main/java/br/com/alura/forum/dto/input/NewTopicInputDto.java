@@ -1,9 +1,19 @@
 package br.com.alura.forum.dto.input;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class NewTopicInputDto {
 
+	@NotBlank
+	@Size(min=10)
 	private String shortDescription;
+	
+	@NotBlank
+	@Size(min=10)
 	private String content;
+	
+	@NotBlank
 	private String courseName;
 	
 	public String getShortDescription() {
