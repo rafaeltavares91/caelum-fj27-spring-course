@@ -1,0 +1,25 @@
+<div style="background-color:#eef1f2;color:#444;font-family:Arial,sans-serif">
+    <div style="width:95%;display:block;margin:0 auto;background-color:#fff">
+        <div style="padding:20px;margin-bottom:30px;background-color:#f2ca26">
+            <a href="http://localhost:3000/" target="_blank">
+                <img style="display:inline-block;vertical-align:middle;width:100px"
+                     src="https://www.alura.com.br/assets/img/alura-logo-email.png" />
+            </a>
+        </div>
+        <div style="padding:20px 40px">Olá <span th:text="${topicOwnerName}"></span>,
+            <br>
+            <br> Há uma nova mensagem no fórum! <span th:text="${answerAuthor}"></span> comentou na mensagem
+            <a href="http://localhost:3000/" target="_blank">"<span th:text="${topicShortDescription}"></span>"</a> às <span th:text="${answerCreationInstant}"></span> com o seguinte conteúdo:
+            <p style="word-wrap:break-word;font-style:italic">
+                "<span th:text="${answerContent}"></span>"
+            </p>
+            Para responder esta mensagem, acesse o fórum. Obrigado por participar!
+            <br>
+            <br>
+        </div>
+        <div style="padding-top:20px;margin-top:30px;border-top:solid 3px #f2ca26;padding:20px">
+            <a style="color:#a9a9a9;text-decoration:none" href="http://alura.com.br" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://alura.com.br&amp;source=gmail&amp;ust=1538850140649000&amp;usg=AFQjCNGguW7ViyKGBAlYPstv71szto2EOw">
+                <span class="lG">alura</span>.com.br</a>
+        </div>
+    </div>
+</div>
