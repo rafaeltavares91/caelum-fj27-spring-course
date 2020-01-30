@@ -15,17 +15,21 @@ public class AnswerService {
 
 	private AnswerRepository answerRepository;
 	private TopicRepository topicRepository;
+	private ForumMailService mailService;
 	
-	public AnswerService(AnswerRepository answerRepository, TopicRepository topicRepository) {
+	public AnswerService(AnswerRepository answerRepository, TopicRepository topicRepository, ForumMailService mailService) {
 		this.answerRepository = answerRepository;
 		this.topicRepository = topicRepository;
+		this.mailService = mailService;
 	}
 
 	public AnswerOutputDto create(NewAnswerInputDto newAnswerDto, Long topicId, User loggedUser) {
 		Answer answer = new Answer(newAnswerDto.getContent(), topicRepository
 				.findById(topicId)
 				.orElseThrow(ResourceNotFoundException::new), loggedUser);
-		return new AnswerOutputDto(answerRepository.save(answer));
+		answer = answerRepository.save(answer);
+		mailService.sendNewReplyMail(answer);
+		return new AnswerOutputDto(answer);
 	}
 
 }

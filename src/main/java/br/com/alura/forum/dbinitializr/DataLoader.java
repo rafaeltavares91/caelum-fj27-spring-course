@@ -37,7 +37,7 @@ public class DataLoader implements CommandLineRunner {
     private void loadData() {
     	Category programacao = categoryRepository.save(new Category("Programacao"));
     	Category category = categoryRepository.save(new Category("Java", programacao));
-		User user = userRepository.save(new User("Rafael", "rafael.tavares@caelum.com.br", new BCryptPasswordEncoder().encode("123456")));
+		User user = userRepository.save(new User("Rafael", "rafaeltavares91@gmail.com", new BCryptPasswordEncoder().encode("123456")));
 		Course course = courseRepository.save(new Course("Spring boot - fj27", category));
 		Topic topic = new Topic("Problemas da primeira aula", "tive um erro de categoria", user, course);
 		topicRepository.save(topic);
