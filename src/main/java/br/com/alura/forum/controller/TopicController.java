@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,5 +77,10 @@ public class TopicController {
 	public void initBinder(WebDataBinder binder, @AuthenticationPrincipal User user) {
 		binder.addValidators(new NewTopicCustomValidator(topicService, user));
 	}
+	
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TopicOutputDto getTopicDetails(@PathVariable Long id) {
+        return topicService.findById(id);
+    }
 	
 }

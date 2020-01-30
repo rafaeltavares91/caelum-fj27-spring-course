@@ -47,5 +47,12 @@ public class TopicService {
 	public List<Topic> findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(User user, Instant instant) {
 		return topicRepository.findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(user, instant);
 	}
+
+	public TopicOutputDto findById(Long id) {
+		return new TopicOutputDto(
+				topicRepository
+					.findById(id)
+					.orElseThrow(ResourceNotFoundException::new));
+	}
 	
 }
