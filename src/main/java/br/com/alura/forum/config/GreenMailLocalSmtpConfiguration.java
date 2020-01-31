@@ -1,18 +1,22 @@
 package br.com.alura.forum.config;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Configuration
 @Profile("dev")
 public class GreenMailLocalSmtpConfiguration {
+	
+	private static final Logger logger = LoggerFactory.getLogger(GreenMailLocalSmtpConfiguration.class);
 
     private GreenMail smtpServer;
 
