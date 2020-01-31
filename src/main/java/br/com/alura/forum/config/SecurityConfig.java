@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/admin/reports/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 				.cors()
@@ -62,10 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**.html", "/v2/api-docs",
-				"/webjars/**", "/configuration/**",
-				"/swagger-resources/**");
+		web.ignoring().antMatchers(
+				"/**.html",  "/v2/api-docs", "/webjars/**", 
+				"/configuration/**", "/swagger-resources/**", 
+				"/css/**", "/**.ico", "/js/**");
 	}
+
 	
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
 	@Override
