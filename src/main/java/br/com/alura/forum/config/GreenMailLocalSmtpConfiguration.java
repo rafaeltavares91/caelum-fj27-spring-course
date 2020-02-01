@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Configuration
-@Profile("dev")
+@Profile("prod")
 public class GreenMailLocalSmtpConfiguration {
 	
 	private static final Logger logger = LoggerFactory.getLogger(GreenMailLocalSmtpConfiguration.class);
