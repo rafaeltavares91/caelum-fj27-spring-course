@@ -18,15 +18,15 @@ public class DataLoader implements CommandLineRunner {
 
     private TopicRepository topicRepository;
     private CategoryRepository categoryRepository;
-    private UserRepository userRepository;
     private CourseRepository courseRepository;
+    private UserRepository userRepository;
     
 	public DataLoader(TopicRepository topicRepository, CategoryRepository categoryRepository,
-			UserRepository userRepository, CourseRepository courseRepository) {
+			CourseRepository courseRepository, UserRepository userRepository) {
 		this.topicRepository = topicRepository;
 		this.categoryRepository = categoryRepository;
-		this.userRepository = userRepository;
 		this.courseRepository = courseRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -42,6 +42,8 @@ public class DataLoader implements CommandLineRunner {
 		Topic topic = new Topic("Problemas da primeira aula", "tive um erro de categoria", user, course);
 		topicRepository.save(topic);
 		
-		userRepository.save(new User("Rafa", "rafa@gmail.com", "$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK"));
+		User rafa = new User("Rafa", "rafa@gmail.com", "$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK");
+		userRepository.save(rafa);
     }
+		
 }
